@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Billboard Top 10</title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+        <style>
+            body{
+                background: rgb(65,63,107);
+                background: linear-gradient(90deg, rgba(65,63,107,1) 0%, rgba(79,79,221,1) 24%, rgba(0,212,255,1) 100%);
+                font-family: 'Open Sans', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" class="container mx-auto px-4">
+            <h1 class="mt-6 text-3xl font-bold" v-text="appTitle"></h1>
+
+            <div class="card flex justify-center rounded-lg bg-white mt-6 p-2">
+                <div class="move-left flex justify-center items-center w-1/6 text-center" @click="prevSong">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="song flex justify-start	w-4/6 p-2">
+                    <div class="song-image p-2">
+                        <img class="object-none	object-center h-80" v-bind:src="songs[index].cover" alt="">
+                    </div>
+                    <div class="song-data p-2">
+                        <div class="song-position text-lg font-black" v-text="songs[index].position"></div>
+                        <div class="song-title text-lg font-black" v-text="songs[index].title"></div>
+                        <div class="song-artist text-sm font-thin" v-text="songs[index].artist"></div>
+                    </div>
+                </div>
+                <div class="move-right flex justify-center items-center w-1/6 text-center" @click="nextSong">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <script src="songs.js"></script>
+        <script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
+        <script>
+            const BillboardApp = {
+                data() {
+                    return {
+                        appTitle: 'Billboard Top 10',
+                        songs,
+                        index: 0                     
+                    };
+                },
+                methods: {
+                    nextSong() {
+                        this.index < 9 ? this.index++ : this.index = 0;
+                    },
+                    prevSong() {
+                        this.index > 0 ? this.index-- : this.index = 9;
+                    }
+                }
+            };
+
+            const app = Vue.createApp(BillboardApp).mount('#app');
+        </script>
+    </body>
+</html>
