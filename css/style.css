@@ -1,0 +1,51 @@
+body{
+    background: rgb(65,63,107);
+    background: linear-gradient(90deg, rgba(65,63,107,1) 0%, rgba(79,79,221,1) 24%, rgba(0,212,255,1) 100%);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.star-rating {
+    direction: rtl;
+    display: flex;
+    justify-content: flex-end;
+}
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.star-rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.star-rating:not(:checked) > label {
+    /* float: right; */
+    width: 1em;
+    padding: 0 .1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 150%;
+    color: lightgrey;
+}
+
+.star-rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.star-rating > input:checked ~ label {
+    color: gold;
+}
+
+.star-rating:not(:checked) > label:hover,
+.star-rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+.star-rating > input:checked + label:hover,
+.star-rating > input:checked + label:hover ~ label,
+.star-rating > input:checked ~ label:hover,
+.star-rating > input:checked ~ label:hover ~ label,
+.star-rating > label:hover ~ input:checked ~ label {
+    color: gold;
+}
